@@ -26,9 +26,9 @@ title('CricketSat frequency - AA section');
 %% 2. Plot frequency vs. time with outliers removed
 
 % outlier removal by inspection
-%freq(freq < 390) = NaN;
-%freq(time > 1300) = NaN;
-tf_bad = [];
+freq_bad = freq < 390;
+time_bad = time > 1300;
+tf_bad = 0;             % not used
 %freq_bad = freq < 385;
 %time_bad = time > 1470;
 %tf_bad = time > 1000 & freq < 410;
@@ -45,11 +45,10 @@ hold on;
 plot(time(out_ind), freq(out_ind), 'r*');
 plot(time(bad_ind), freq(bad_ind), 'mo');
 plot(time, ones(size(time)).*L);
-plot(time, ones(size(time)).*C);
+%plot(time, ones(size(time)).*C);
 plot(time, ones(size(time)).*U);
 ylim([0 600]);
-
-%legend('raw data', 'outliers')
+legend('raw data', 'outliers (from 3 MAD)', 'outliers (by inspection)', 'outlier filter lower limit', 'outlier filter upper limit');
 
 figure(2)
 hold off
@@ -71,5 +70,5 @@ plot(time_clean, temp_clean, '.');
 xlabel('time (s)');
 ylabel('temperature (C)');
 title('CricketSat temperature - AA section');
-title('CricketSat temperature - AB section');
+%title('CricketSat temperature - AB section');
 
