@@ -7,7 +7,8 @@
 
 %% Import CricketSat data:
 
-crickdata = importdata('2022_CKB.txt',' ');
+crickdata = importdata('2022_CKA.txt',' ');
+%crickdata = importdata('2022_CKB.txt',' ');
 
 time = crickdata(:,1);
 freq = crickdata(:,2);
@@ -19,15 +20,18 @@ plot(time, freq, '.');
 xlabel('time (s)');
 ylabel('frequency (Hz)');
 title('CricketSat frequency - AA section');
+%title('CricketSat frequency - AB section');
+
 
 %% 2. Plot frequency vs. time with outliers removed
 
 % outlier removal by inspection
 %freq(freq < 390) = NaN;
 %freq(time > 1300) = NaN;
-freq_bad = freq < 385;
-time_bad = time > 1470;
-tf_bad = time > 1000 & freq < 410;
+tf_bad = [];
+%freq_bad = freq < 385;
+%time_bad = time > 1470;
+%tf_bad = time > 1000 & freq < 410;
 bad_ind = freq_bad | time_bad | tf_bad;
 
 % outlier removal by algorithm
@@ -53,13 +57,13 @@ plot(time_clean, freq_clean, '.');
 xlabel('time (s)');
 ylabel('frequency (Hz)');
 title('CricketSat frequency - AA section');
+%title('CricketSat frequency - AB section');
 ylim([0 600]);
 
 %% 3. Estimate temperature using the CricketSat calibration curve
 
-%temp_clean = 3776./(log(1./freq_clean - 1/2498) + 19.70) - 273.2;
-temp_clean = 3801./(log(1./freq_clean - 1/2539) + 19.73) - 273.2;
-
+temp_clean = 3776./(log(1./freq_clean - 1/2498) + 19.70) - 273.2;
+%temp_clean = 3801./(log(1./freq_clean - 1/2539) + 19.73) - 273.2;
 
 figure(3)
 hold off;
@@ -67,3 +71,5 @@ plot(time_clean, temp_clean, '.');
 xlabel('time (s)');
 ylabel('temperature (C)');
 title('CricketSat temperature - AA section');
+title('CricketSat temperature - AB section');
+
