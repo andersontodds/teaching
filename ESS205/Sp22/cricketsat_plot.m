@@ -97,10 +97,21 @@ ylim([0 600]);
 %% 3. Estimate temperature using the CricketSat calibration curve
 
 if section == "A"
-    temp_clean = 3776./(log(1./freq_clean - 1/2498) + 19.70) - 273.2;
+    %temp_clean = 3776./(log(1./freq_clean - 1/2498) + 19.70) - 273.2;
+    A = 3376;
+    B = 2498;
+    C = 19.70;
+    D = 273.2;
+
 else
-    temp_clean = 3801./(log(1./freq_clean - 1/2539) + 19.73) - 273.2;
+    %temp_clean = 3801./(log(1./freq_clean - 1/2539) + 19.73) - 273.2;
+    A = 3801;
+    B = 2539;
+    C = 19.73;
+    D = 273.2;
 end
+
+temp_clean = A./(log(1./freq_clean - 1/B) + C) - D;
 
 figure(3)
 hold off;
